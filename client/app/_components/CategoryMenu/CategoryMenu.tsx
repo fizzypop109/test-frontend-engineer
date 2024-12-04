@@ -1,12 +1,13 @@
 "use client"
 
-import {useCategoryMenu} from "@/app/_components/CategoryMenu/talons/useCategoryMenu";
 import Link from "next/link";
+import {useContext} from "react";
+import {CategoriesContext} from "@/app/_contextProviders/CategoriesContextProvider";
 
 export const CategoryMenu = () => {
-    const { categories, loading } = useCategoryMenu();
+    const categories = useContext(CategoriesContext);
 
-    return loading ? <div>Loading...</div> :
+    return categories.length <= 0 ? <div>Loading...</div> :
         (
             <nav className="flex gap-[20px]">
                 { categories.map((category) => <Link key={category} href={`/products?category=${category}`}>{category}</Link>)}
