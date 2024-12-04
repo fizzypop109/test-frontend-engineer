@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: var(--beige);
+  --foreground: var(--coffee);
+
+  --beige: #F5F5DC;
+  --khaki: #CBB799;
+  --chamoisee: #A07856;
+  --coffee: #6F4D38;
+  --bistre: #3D211A;
+  --gold: #FFCF40;
+
+  --header-height: 80px;
+
+  --padding-page-mobile: 32px;
+  --padding-page-desktop: 80px;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geo), Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 36px;
+  font-family: var(--font-magical-nordic), Serif, sans-serif;
+}
+
+.z-1 {
+  z-index: 1;
+}

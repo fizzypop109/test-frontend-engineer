@@ -1,6 +1,12 @@
 import { useSearchParams } from 'next/navigation'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Product } from '../../types';
+
+export enum SortType {
+    Alphabetical = "A-Z",
+    PriceLowHigh = "Price: Low - High",
+    PriceHighLow = "Price: High - Low"
+}
 
 export const useProductPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -22,9 +28,53 @@ export const useProductPage = () => {
         getProductsOfCategory();
     }, []);
 
+    const onSortChange = (e: React.FormEvent<HTMLSelectElement>) => {
+        const sortType = e.currentTarget.value as SortType;
+        const productTemp = [...products];
+
+        if (sortType === SortType.Alphabetical) {
+            const sortedProducts = productTemp.sort((a, b) => {
+                if (a.title < b.title) {
+                    return -1;
+                }
+                if (a.title > b.title) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            setProducts(sortedProducts);
+        } else if (sortType === SortType.PriceLowHigh) {
+            const sortedProducts = productTemp.sort((a, b) => {
+                if (a.price < b.price) {
+                    return -1;
+                }
+                if (a.price > b.price) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            setProducts(sortedProducts);
+        } else if (sortType === SortType.PriceHighLow) {
+            const sortedProducts = productTemp.sort((a, b) => {
+                if (a.price > b.price) {
+                    return -1;
+                }
+                if (a.price < b.price) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            setProducts(sortedProducts);
+        }
+    }
+
     return {
         products,
         loading,
-        category
+        category,
+        onSortChange
     }
 }

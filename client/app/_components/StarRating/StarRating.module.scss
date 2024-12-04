@@ -1,0 +1,10 @@
+.emptyStars:before, .fullStars:before {
+  content:"\2605\2605\2605\2605\2605";
+  font-size: 16pt;
+}
+.emptyStars:before {
+  -webkit-text-stroke: 1px var(--khaki);
+}
+.fullStars:before {
+  -webkit-text-stroke: 1px var(--gold);
+}
