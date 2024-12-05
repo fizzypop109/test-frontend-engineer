@@ -15,7 +15,7 @@ const ProductPage = () => {
                 <div className="flex flex-col gap-[10px] relative">
                     <div className="flex gap-[10px] fixed bg-[var(--beige)]">
                         <BreadCrumb to="/" label="home" />
-                        ->
+                        <p>{'->'}</p>
                         <BreadCrumb to={`products?category=${product.category}`} label={product.category} />
                     </div>
 

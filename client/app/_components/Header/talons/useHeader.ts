@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {CartContext} from "../../../_contextProviders/CartContextProvider";
 import {useRouter} from "next/navigation";
 
@@ -19,11 +19,11 @@ export const useHeader = () => {
         setSearchOpen(isOpen => !isOpen);
     }
 
-    const updateSearchTerm = (e) => {
-        setSearchTerm(e.target.value);
+    const updateSearchTerm = (e: React.FormEvent<HTMLInputElement>) => {
+        setSearchTerm(e.currentTarget.value);
     }
 
-    const search = (e) => {
+    const search = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             setSearchOpen(false);
             router.push(`/products?searchTerm=${searchTerm}`);

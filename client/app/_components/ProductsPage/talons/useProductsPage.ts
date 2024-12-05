@@ -39,7 +39,7 @@ export const useProductsPage = () => {
                 fetch("https://fakestoreapi.in/api/products")
                     .then(res => res.json())
                     .then(json => {
-                        const results = json.products.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm.toLowerCase().includes(p.category.toLowerCase()));
+                        const results = json.products.filter((p: Product) => p.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm.toLowerCase().includes(p.category.toLowerCase()));
                         const sortedResults = sortProducts(results);
                         setProducts(sortedResults);
                         const firstTen = sortedResults.slice(0, 10);
@@ -67,8 +67,8 @@ export const useProductsPage = () => {
         setMoreProducts(products.length > newProductsToShow.length);
     }
 
-    const onScroll = (e) => {
-        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    const onScroll = (e: React.UIEvent<HTMLElement>) => {
+        const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
 
         if (bottom && products.length > productsToShow.length) {
             loadMore();
@@ -78,7 +78,7 @@ export const useProductsPage = () => {
     const sortProducts = (productsToSort: Product[]) => {
         const productsTemp = [...productsToSort];
 
-        let sortedProducts = [];
+        let sortedProducts: Product[] = [];
 
         if (sortType === SortType.Alphabetical) {
             sortedProducts = productsTemp.sort((a, b) => {
