@@ -23,11 +23,17 @@ export const useHeader = () => {
         setSearchTerm(e.currentTarget.value);
     }
 
-    const search = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            setSearchOpen(false);
-            router.push(`/products?searchTerm=${searchTerm}`);
+            search();
         }
+    }
+
+    const search = () => {
+        setSearchOpen(false);
+        const term = searchTerm;
+        setSearchTerm('');
+        router.push(`/products?searchTerm=${term}`);
     }
 
     return {
@@ -36,6 +42,7 @@ export const useHeader = () => {
         searchOpen,
         searchTerm,
         search,
+        onKeyDown,
         updateSearchTerm
     }
 }

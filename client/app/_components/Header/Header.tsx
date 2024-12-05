@@ -4,9 +4,10 @@ import Link from "next/link";
 import {CartIcon} from "../Icons/CartIcon";
 import {useHeader} from "./talons/useHeader";
 import {SearchIcon} from "../Icons/SearchIcon";
+import {ArrowIcon} from "../Icons/ArrowIcon";
 
 export const Header = () => {
-    const { quantity, searchOpen, searchTerm, toggleSearch, search, updateSearchTerm } = useHeader();
+    const { quantity, searchOpen, searchTerm, toggleSearch, search, onKeyDown, updateSearchTerm } = useHeader();
 
     return (
         <header className="w-[100vw] h-[var(--header-height)] px-8 sm:px-20 flex fixed top-0 left-0 bg-[var(--beige)] z-1">
@@ -28,7 +29,13 @@ export const Header = () => {
             {searchOpen && (
                 <div
                     className="absolute transition-all left-0 top-[100%] p-[var(--padding-page-mobile)] pt-0 bg-[var(--beige)] w-full">
-                    <input onChange={updateSearchTerm} onKeyDown={search} value={searchTerm} type="text" className="w-full p-[10px] bg-white"/>
+                    <div className="bg-white w-full flex items-center">
+                        <input onChange={updateSearchTerm} onKeyDown={onKeyDown} value={searchTerm} type="text"
+                               className="p-[10px] w-full bg-white"/>
+                        <button onClick={search} className="px-[10px]">
+                            <ArrowIcon widthClass="w-[20px]" heightClass="h-[20px]"/>
+                        </button>
+                    </div>
                 </div>
             )}
         </header>

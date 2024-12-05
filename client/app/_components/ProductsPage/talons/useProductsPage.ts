@@ -12,6 +12,7 @@ export const useProductsPage = () => {
     const [moreProducts, setMoreProducts] = useState<boolean>(true);
 
     const PRODUCTS_PER_PAGE = 10;
+    const SCROLL_BUFFER = 15;
 
     const searchParams = useSearchParams();
     const category = searchParams.get('category');
@@ -68,7 +69,7 @@ export const useProductsPage = () => {
     }
 
     const onScroll = (e: React.UIEvent<HTMLElement>) => {
-        const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
+        const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop <= (e.currentTarget.clientHeight + SCROLL_BUFFER);
 
         if (bottom && products.length > productsToShow.length) {
             loadMore();
