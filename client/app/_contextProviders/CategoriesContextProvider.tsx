@@ -13,10 +13,10 @@ export const CategoriesContextProvider = ({ children }: CategoriesContextProvide
 
     useEffect(() => {
         const getCategories = async () => {
-            fetch('https://fakestoreapi.com/products/categories')
+            fetch('https://fakestoreapi.in/api/products/category')
                 .then(res=>res.json())
                 .then(json=>{
-                    setCategories(json);
+                    setCategories(json.categories);
                 })
         }
 

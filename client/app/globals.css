@@ -13,7 +13,7 @@
   --bistre: #3D211A;
   --gold: #FFCF40;
 
-  --header-height: 80px;
+  --header-height: 100px;
 
   --padding-page-mobile: 32px;
   --padding-page-desktop: 80px;
@@ -28,6 +28,14 @@ body {
 h1 {
   font-size: 36px;
   font-family: var(--font-magical-nordic), Serif, sans-serif;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 20px;
 }
 
 .z-1 {

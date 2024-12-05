@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import {CategoriesContextProvider} from "./_contextProviders/CategoriesContextProvider";
 import {Header} from "./_components/Header/Header";
+import {CartContextProvider} from "./_contextProviders/CartContextProvider";
 
 const magicalNordic = localFont({
   src: "./fonts/MagicalNordic.otf",
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${magicalNordic.variable} ${geo.variable} antialiased p-[var(--padding-page-mobile)] sm:p-[var(--padding-page-desktop)] pt-[var(--header-height)]`}
       >
-      <Header />
-      <CategoriesContextProvider>
-        {children}
-      </CategoriesContextProvider>
+      <CartContextProvider>
+          <CategoriesContextProvider>
+              <Header />
+              {children}
+          </CategoriesContextProvider>
+      </CartContextProvider>
       </body>
     </html>
   );

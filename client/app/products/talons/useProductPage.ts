@@ -1,12 +1,6 @@
 import { useSearchParams } from 'next/navigation'
 import React, {useEffect, useState} from "react";
-import { Product } from '../../types';
-
-export enum SortType {
-    Alphabetical = "A-Z",
-    PriceLowHigh = "Price: Low - High",
-    PriceHighLow = "Price: High - Low"
-}
+import {Product, SortType} from '../../types';
 
 export const useProductPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -17,11 +11,11 @@ export const useProductPage = () => {
 
     useEffect(() => {
         const getProductsOfCategory = async () => {
-            fetch(`https://fakestoreapi.com/products/category/${category}`)
+            fetch(`https://fakestoreapi.in/api/products/category?type=${category}`)
                 .then(res=>res.json())
                 .then(json=> {
                     setLoading(false);
-                    setProducts(json);
+                    setProducts(json.products);
                 })
         }
 
