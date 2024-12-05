@@ -7,14 +7,15 @@ export const Header = () => {
     const { quantity } = useHeader();
 
     return (
-        <header
-                className="w-[100vw] overflow-x-hidden h-[var(--header-height)] px-8 sm:px-20 flex items-center fixed top-0 left-0 bg-[var(--beige)] z-1">
+        <header className="w-[100vw] overflow-x-hidden h-[var(--header-height)] px-8 sm:px-20 flex items-center fixed top-0 left-0 bg-[var(--beige)] z-1">
                 <Link href="/" className="m-auto text-[var(--coffee)]">
                 <h1>FakeStore</h1>
                 </Link>
 
+            <div className="flex items-center">
                 <CartIcon widthClass="w-[30px]" heightClass="h-[30px]" color="var(--coffee)" />
-            { quantity > 0 && <p>{quantity}</p> }
+                { quantity > 0 && <p>{quantity}</p> }
+            </div>
         </header>
 
     )

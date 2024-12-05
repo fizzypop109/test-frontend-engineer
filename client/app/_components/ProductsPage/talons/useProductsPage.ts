@@ -1,11 +1,17 @@
 import {useSearchParams} from 'next/navigation'
 import React, {useEffect, useState} from "react";
 import {Product, SortType} from '../../../types';
+import {sort} from "next/dist/build/webpack/loaders/css-loader/src/utils";
 
-export const useProductPage = () => {
+export const useProductsPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
+    const [productsToShow, setProductsToShow] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [sortType, setSortType] = useState<SortType>(SortType.Alphabetical);
+    const [page, setPage] = useState(1);
+    const [moreProducts, setMoreProducts] = useState<boolean>(true);
+
+    const PRODUCTS_PER_PAGE = 10;
 
     const searchParams = useSearchParams();
     const category = searchParams.get('category');
@@ -15,8 +21,13 @@ export const useProductPage = () => {
             fetch(`https://fakestoreapi.in/api/products/category?type=${category}`)
                 .then(res=>res.json())
                 .then(json=> {
+                    // Get first 10
+                    const sortedProducts = sortProducts(json.products);
+                    setProducts(sortedProducts);
+                    const firstTen = sortedProducts.slice(0, 10);
                     setLoading(false);
-                    sortProducts(json.products);
+                    setProductsToShow(firstTen);
+                    setMoreProducts(sortedProducts.length > firstTen.length);
                 })
         }
 
@@ -24,14 +35,34 @@ export const useProductPage = () => {
     }, []);
 
     useEffect(() => {
-        sortProducts(products);
+        const sortedProducts = sortProducts(products);
+        setProducts(sortedProducts);
+        setProductsToShow(sortedProducts.slice(0, page * PRODUCTS_PER_PAGE));
     }, [sortType]);
+
+    const loadMore = () => {
+        const currentPage = page + 1;
+        const newProductsToShow = products.slice(0, currentPage * PRODUCTS_PER_PAGE);
+        setProductsToShow(newProductsToShow);
+        setPage(currentPage);
+        setMoreProducts(products.length > newProductsToShow.length);
+    }
+
+    const onScroll = (e) => {
+        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+
+        if (bottom && products.length > productsToShow.length) {
+            loadMore();
+        }
+    }
 
     const sortProducts = (productsToSort: Product[]) => {
         const productsTemp = [...productsToSort];
 
+        let sortedProducts = [];
+
         if (sortType === SortType.Alphabetical) {
-            const sortedProducts = productsTemp.sort((a, b) => {
+            sortedProducts = productsTemp.sort((a, b) => {
                 if (a.title < b.title) {
                     return -1;
                 }
@@ -40,10 +71,8 @@ export const useProductPage = () => {
                 }
                 return 0;
             });
-
-            setProducts(sortedProducts);
         } else if (sortType === SortType.PriceLowHigh) {
-            const sortedProducts = productsTemp.sort((a, b) => {
+            sortedProducts = productsTemp.sort((a, b) => {
                 if (a.price < b.price) {
                     return -1;
                 }
@@ -52,10 +81,8 @@ export const useProductPage = () => {
                 }
                 return 0;
             });
-
-            setProducts(sortedProducts);
         } else if (sortType === SortType.PriceHighLow) {
-            const sortedProducts = productsTemp.sort((a, b) => {
+            sortedProducts = productsTemp.sort((a, b) => {
                 if (a.price > b.price) {
                     return -1;
                 }
@@ -64,9 +91,9 @@ export const useProductPage = () => {
                 }
                 return 0;
             });
-
-            setProducts(sortedProducts);
         }
+
+        return sortedProducts;
     }
 
     const onSortChange = (e: React.FormEvent<HTMLSelectElement>) => {
@@ -74,9 +101,11 @@ export const useProductPage = () => {
     }
 
     return {
-        products,
+        productsToShow,
         loading,
         category,
-        onSortChange
+        moreProducts,
+        onSortChange,
+        onScroll
     }
 }

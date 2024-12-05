@@ -19,14 +19,14 @@ export const CartPopup = () => {
                 </button>
             </div>
 
-            <div className={classNames("overflow-y-scroll flex flex-col gap-[20px] sm:pr-[15px]", classes.products)}>
+            <div className={classNames("overflow-y-scroll scrollable flex flex-col gap-[20px] sm:pr-[15px]", classes.products)}>
                 <div className="flex flex-col w-full gap-[20px]">
                     {cart.length == 0 && (
                         <p>There are no products in your cart yet!</p>
                     )}
                     {cart.map(p => (
-                        <div>
-                            <div key={p.product.id} className="flex gap-[10px] items-start justify-between">
+                        <div key={p.product.id}>
+                            <div className="flex gap-[20px] items-start justify-start">
                                 <img className="h-[100px] w-[100px] min-w-[100px] min-h-[100px] object-contain" src={p.product.image} alt={`image for ${p.product.title}`}/>
                                 <div className="flex flex-col gap-[5px] items-start">
                                     <p>{p.product.title}</p>
@@ -35,7 +35,7 @@ export const CartPopup = () => {
                                     <QuantitySelector product={p.product} />
                                 </div>
 
-                                <button onClick={() => removeFromCart(p.product.id)}>
+                                <button className="ml-auto" onClick={() => removeFromCart(p.product.id)}>
                                     <CloseIcon widthClass="min-w-[20px]" heightClass="h-[20px]" color="var(--coffee)"/>
                                 </button>
                             </div>

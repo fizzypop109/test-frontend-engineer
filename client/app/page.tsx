@@ -8,11 +8,10 @@ import Link from "next/link";
 
 export default function Home() {
   const categories = useContext(CategoriesContext);
-  const {isMobile} = useScreenDetector();
 
   return (
     <div className="">
-      <div className={isMobile ? 'flex flex-col gap-[20px]' : 'grid grid-cols-2 gap-[20px]'}>
+      <div className="flex flex-col gap-[20px] md:grid md:grid-cols-2">
         { categories.map(category => (
             <Link href={`products?category=${category}`} key={category} className="h-[200px] lg:h-[350px] w-full relative">
               <img className="w-full h-full object-cover rounded-lg" src={`${category.replace(/'/g, '').replace(/ /g,"-")}.webp`} alt={`${category} image`}/>

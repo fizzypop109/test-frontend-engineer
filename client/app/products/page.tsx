@@ -1,12 +1,12 @@
 "use client"
 
 import {Suspense} from "react";
-import ProductPage from "../_components/ProductPage/ProductPage";
+import ProductsPage from "../_components/ProductsPage/ProductsPage";
 
 const ProductsPageRoot = () => {
     return (
         <Suspense>
-            <ProductPage />
+            <ProductsPage />
         </Suspense>
     );
 }
