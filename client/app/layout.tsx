@@ -4,6 +4,7 @@ import "./globals.css";
 import {CategoriesContextProvider} from "./_contextProviders/CategoriesContextProvider";
 import {Header} from "./_components/Header/Header";
 import {CartContextProvider} from "./_contextProviders/CartContextProvider";
+import {CartPopup} from "./_components/CartPopup/CartPopup";
 
 const magicalNordic = localFont({
   src: "./fonts/MagicalNordic.otf",
@@ -34,6 +35,7 @@ export default function RootLayout({
       <CartContextProvider>
           <CategoriesContextProvider>
               <Header />
+              <CartPopup />
               {children}
           </CategoriesContextProvider>
       </CartContextProvider>

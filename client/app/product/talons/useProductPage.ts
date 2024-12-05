@@ -9,7 +9,7 @@ export const useProductPage = () => {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [showingDescription, setShowingDescription] = useState(false);
-    const { addToCart } = useContext(CartContext);
+    const { cart, addToCart } = useContext(CartContext);
 
     const searchParams = useSearchParams();
     const productId = searchParams.get('id');
@@ -27,6 +27,8 @@ export const useProductPage = () => {
         getProduct();
     }, []);
 
+    const isInCart = cart.findIndex(p => p.product.id === product?.id) >= 0;
+
     const onAddToCart = () => {
         addToCart(product as Product);
     }
@@ -40,6 +42,7 @@ export const useProductPage = () => {
         loading,
         showingDescription,
         onAddToCart,
-        updateShowingDescription
+        updateShowingDescription,
+        isInCart,
     }
 }

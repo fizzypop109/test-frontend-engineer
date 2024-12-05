@@ -6,6 +6,8 @@ import {CartContext, CartProduct, Product} from "../types";
 export const CartContext = createContext<CartContext>(
     {
         cart: [],
+        cartPopupOpen: false,
+        toggleCartPopup: () => {},
         addToCart: () => {},
         updateCart: () => {},
         removeFromCart: () => {},
@@ -17,9 +19,20 @@ export interface CartContextProviderProps {
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     const [cart, setCart] = useState<CartProduct[]>([]);
+    const [cartPopupOpen, setCartPopupOpen] = useState(false);
+
+    const toggleCartPopup = () => {
+        setCartPopupOpen(isOpen => !isOpen);
+    }
 
     const updateCart = (id: number, quantity: number) => {
         const tempCart = [...cart];
+
+        if (quantity <= 0) {
+            removeFromCart(id);
+            return;
+        }
+
         const index = tempCart.findIndex(p => p.product.id === id);
         tempCart[index].quantity = quantity;
 
@@ -49,7 +62,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     }
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateCart }}>
+        <CartContext.Provider value={{ cart, cartPopupOpen, addToCart, removeFromCart, updateCart, toggleCartPopup }}>
             {children}
         </CartContext.Provider>
     );

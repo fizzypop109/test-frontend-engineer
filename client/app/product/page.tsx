@@ -2,9 +2,10 @@
 
 import {useProductPage} from "./talons/useProductPage";
 import classNames from "classnames";
+import {QuantitySelector} from "../_components/QuantitySelector/QuantitySelector";
 
 const ProductPage = () => {
-    const {product, loading, showingDescription, onAddToCart, updateShowingDescription} = useProductPage();
+    const {product, loading, showingDescription, onAddToCart, updateShowingDescription, isInCart} = useProductPage();
 
     return (
         <main>
@@ -17,8 +18,14 @@ const ProductPage = () => {
                     <h3>{product.title}</h3>
                     <h4 className="font-bold">${product.price}</h4>
 
-                    <button onClick={onAddToCart} className="w-full p-[10px] bg-[var(--coffee)] text-[var(--beige)] my-[20px] font-bold">Add To Cart
-                    </button>
+                    <div className="flex items-center justify-center">
+                        { isInCart ? <QuantitySelector product={product} /> :
+                            <button onClick={onAddToCart}
+                                    className="w-full p-[10px] bg-[var(--coffee)] text-[var(--beige)] my-[20px] font-bold">Add
+                                To Cart
+                            </button>
+                        }
+                    </div>
 
                     <div>
                         <h6 className="font-bold mb-[10px]">Description:</h6>

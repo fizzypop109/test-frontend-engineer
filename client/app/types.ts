@@ -13,6 +13,8 @@ export interface Product {
 
 export interface CartContext {
     cart: CartProduct[],
+    cartPopupOpen: boolean,
+    toggleCartPopup: () => void,
     addToCart: (value: Product) => void,
     removeFromCart: (id: number) => void,
     updateCart: (id: number, quantity: number) => void,
