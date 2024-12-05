@@ -2,8 +2,8 @@
 
 import {useSearchParams} from "next/navigation";
 import {useContext, useEffect, useState} from "react";
-import {Product} from "../../types";
-import {CartContext} from "../../_contextProviders/CartContextProvider";
+import {Product} from "../../../types";
+import {CartContext} from "../../../_contextProviders/CartContextProvider";
 
 export const useProductPage = () => {
     const [product, setProduct] = useState<Product | null>(null);

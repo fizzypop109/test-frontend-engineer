@@ -3,7 +3,7 @@
 import {CartContext} from "../../_contextProviders/CartContextProvider";
 import {Header} from "../Header/Header";
 import {CartPopup} from "../CartPopup/CartPopup";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import classNames from "classnames";
 
 export const Root = ({

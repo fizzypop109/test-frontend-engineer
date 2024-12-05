@@ -11,7 +11,7 @@ export interface Product {
     price: number;
 }
 
-export interface CartContext {
+export interface CartContextObject {
     cart: CartProduct[],
     cartPopupOpen: boolean,
     toggleCartPopup: () => void,

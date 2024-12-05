@@ -1,9 +1,9 @@
 "use client"
 
 import React, {createContext, useState} from 'react';
-import {CartContext, CartProduct, Product} from "../types";
+import {CartContextObject, CartProduct, Product} from "../types";
 
-export const CartContext = createContext<CartContext>(
+export const CartContext = createContext<CartContextObject>(
     {
         cart: [],
         cartPopupOpen: false,

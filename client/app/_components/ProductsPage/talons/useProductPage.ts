@@ -1,6 +1,6 @@
 import {useSearchParams} from 'next/navigation'
 import React, {useEffect, useState} from "react";
-import {Product, SortType} from '../../types';
+import {Product, SortType} from '../../../types';
 
 export const useProductPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
