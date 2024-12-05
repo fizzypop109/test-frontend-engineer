@@ -3,8 +3,7 @@
 import {useProductPage} from "./talons/useProductPage";
 import classNames from "classnames";
 import {QuantitySelector} from "../../_components/QuantitySelector/QuantitySelector";
-import {ArrowIcon} from "../../_components/Icons/ArrowIcon";
-import Link from "next/link";
+import {BreadCrumb} from "../BreadCrumb/BreadCrumb";
 
 const ProductPage = () => {
     const {product, loading, showingDescription, onAddToCart, updateShowingDescription, isInCart} = useProductPage();
@@ -14,12 +13,11 @@ const ProductPage = () => {
             { loading && <div>Loading...</div> }
             { !loading && product && (
                 <div className="flex flex-col gap-[10px] relative">
-                    <Link href={`products?category=${product.category}`} className="flex gap-[10px] mb-[20px] items-center w-full fixed bg-[var(--beige)]">
-                        <div className="rotate-180">
-                            <ArrowIcon widthClass="w-[20px]" heightClass="h-[20px]" color="var(--coffee)" />
-                        </div>
-                        BACK TO {product.category.toUpperCase()}
-                    </Link>
+                    <div className="flex gap-[10px] fixed bg-[var(--beige)]">
+                        <BreadCrumb to="/" label="home" />
+                        ->
+                        <BreadCrumb to={`products?category=${product.category}`} label={product.category} />
+                    </div>
 
                     <div className="flex flex-col sm:grid sm:grid-cols-2 gap-[10px] sm:gap-[20px] mt-[50px]">
                         <div className="p-[20px] bg-white rounded-lg flex items-center justify-center">

@@ -15,24 +15,43 @@ export const useProductsPage = () => {
 
     const searchParams = useSearchParams();
     const category = searchParams.get('category');
+    const searchTerm = searchParams.get('searchTerm');
 
     useEffect(() => {
-        const getProductsOfCategory = async () => {
-            fetch(`https://fakestoreapi.in/api/products/category?type=${category}`)
-                .then(res=>res.json())
-                .then(json=> {
-                    // Get first 10
-                    const sortedProducts = sortProducts(json.products);
-                    setProducts(sortedProducts);
-                    const firstTen = sortedProducts.slice(0, 10);
-                    setLoading(false);
-                    setProductsToShow(firstTen);
-                    setMoreProducts(sortedProducts.length > firstTen.length);
-                })
-        }
+        if (category !== null) {
+            const getProductsOfCategory = async () => {
+                fetch(`https://fakestoreapi.in/api/products/category?type=${category}`)
+                    .then(res=>res.json())
+                    .then(json=> {
+                        // Get first 10
+                        const sortedProducts = sortProducts(json.products);
+                        setProducts(sortedProducts);
+                        const firstTen = sortedProducts.slice(0, 10);
+                        setLoading(false);
+                        setProductsToShow(firstTen);
+                        setMoreProducts(sortedProducts.length > firstTen.length);
+                    })
+            }
 
-        getProductsOfCategory();
-    }, []);
+            getProductsOfCategory();
+        } else if (searchTerm !== null) {
+            const getProductsMatchingSearch = async () => {
+                fetch("https://fakestoreapi.in/api/products")
+                    .then(res => res.json())
+                    .then(json => {
+                        const results = json.products.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()) || searchTerm.toLowerCase().includes(p.category.toLowerCase()));
+                        const sortedResults = sortProducts(results);
+                        setProducts(sortedResults);
+                        const firstTen = sortedResults.slice(0, 10);
+                        setLoading(false);
+                        setProductsToShow(firstTen);
+                        setMoreProducts(sortedResults.length > firstTen.length);
+                    })
+            }
+
+            getProductsMatchingSearch();
+        }
+    }, [category, searchTerm]);
 
     useEffect(() => {
         const sortedProducts = sortProducts(products);
@@ -104,6 +123,7 @@ export const useProductsPage = () => {
         productsToShow,
         loading,
         category,
+        searchTerm,
         moreProducts,
         onSortChange,
         onScroll
