@@ -16,7 +16,10 @@
   --header-height: 100px;
 
   --padding-page-mobile: 32px;
-  --padding-page-desktop: 80px;
+  --padding-page-desktop: var(--padding-y-desktop) var(--padding-x-desktop);
+
+  --padding-y-desktop: 40px;
+  --padding-x-desktop: 80px;
 }
 
 body {
@@ -28,6 +31,10 @@ body {
 h1 {
   font-size: 36px;
   font-family: var(--font-magical-nordic), Serif, sans-serif;
+}
+
+h2 {
+  font-size: 28px;
 }
 
 h3 {
@@ -44,4 +51,20 @@ h4 {
 
 .z-2 {
   z-index: 2;
+}
+
+@media screen and (min-width: 640px) {
+  .scrollable {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--coffee);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--khaki);
+    }
+  }
 }

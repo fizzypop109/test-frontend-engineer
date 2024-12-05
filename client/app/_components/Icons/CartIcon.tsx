@@ -1,17 +1,12 @@
 import {useContext} from "react";
 import {CartContext} from "../../_contextProviders/CartContextProvider";
+import {IconProps} from "./talons/IconProps";
 
-export interface CartIconProps {
-    color?: string;
-    widthClass: string;
-    heightClass: string;
-}
-
-export const CartIcon = ({ color, widthClass, heightClass }: CartIconProps) => {
+export const CartIcon = ({ color, widthClass, heightClass }: IconProps) => {
     const { toggleCartPopup } = useContext(CartContext);
 
    return (
-       <svg onClick={toggleCartPopup} className={`${widthClass} ${heightClass}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <svg onClick={toggleCartPopup} className={`${widthClass} ${heightClass} cursor-pointer`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
               d="M2 3L2.26491 3.0883C3.58495 3.52832 4.24497 3.74832 4.62248 4.2721C5 4.79587 5 5.49159 5 6.88304V9.5C5 12.3284 5 13.7426 5.87868 14.6213C6.75736 15.5 8.17157 15.5 11 15.5H19"
               stroke={color ? color : "#1C274C"} strokeWidth="1.5" strokeLinecap="round"/>

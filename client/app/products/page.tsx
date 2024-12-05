@@ -3,23 +3,34 @@
 import {useProductPage} from "./talons/useProductPage";
 import Link from "next/link";
 import {SortType} from "../types";
+import {ArrowIcon} from "../_components/Icons/ArrowIcon";
+import classNames from "classnames";
+import classes from './ProductsPage.module.scss'
 
-const ProductPage = () => {
+const ProductsPage = () => {
     const { loading, products, category, onSortChange } = useProductPage();
 
     return loading ? <div>Loading...</div> : (
-        <div className="">
-            <main className="flex flex-col gap-[20px]">
-                <div className="bg-[var(--coffee)] text-[var(--beige)] p-[10px] text-center rounded-lg flex justify-between">
-                    <h2>{category?.toUpperCase()}</h2>
-                    <select name="sorting" onChange={onSortChange}>
-                        <option value={SortType.Alphabetical}>{SortType.Alphabetical}</option>
-                        <option value={SortType.PriceLowHigh}>{SortType.PriceLowHigh}</option>
-                        <option value={SortType.PriceHighLow}>{SortType.PriceHighLow}</option>
-                    </select>
+            <div className={classNames("flex relative flex-col gap-[20px] overflow-hidden", classes.page)}>
+                <div className="bg-[var(--beige)] flex flex-col gap-[20px]">
+                    <Link href="/" className="flex gap-[10px] items-center">
+                        <div className="rotate-180">
+                            <ArrowIcon widthClass="w-[20px]" heightClass="h-[20px]" color="var(--coffee)" />
+                        </div>
+                        BACK TO HOME
+                    </Link>
+
+                    <div className="bg-[var(--coffee)] text-[var(--beige)] py-[10px] px-[20px] text-center rounded-lg flex justify-between">
+                        <h3>{category?.toUpperCase()}</h3>
+                        <select className="text-[var(--coffee)]" name="sorting" onChange={onSortChange}>
+                            <option value={SortType.Alphabetical}>{SortType.Alphabetical}</option>
+                            <option value={SortType.PriceLowHigh}>{SortType.PriceLowHigh}</option>
+                            <option value={SortType.PriceHighLow}>{SortType.PriceHighLow}</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-between gap-[10px] sm:gap-[20px]">
+                <div className="grid grid-cols-2 sm:flex h-full overflow-y-scroll scrollable sm:pr-[15px] sm:flex-wrap sm:justify-between gap-[10px] sm:gap-[20px]">
                     {products.map((product) => (
                         <Link href={`product?id=${product.id}`} key={product.id} className="flex flex-col items-center gap-[10px] text-[var(--bistre)] sm:w-[150px]">
                             <div className="h-[150px] w-full rounded-lg p-[10px] bg-white">
@@ -33,9 +44,8 @@ const ProductPage = () => {
                         </Link>
                     ))}
                 </div>
-            </main>
-        </div>
+            </div>
     );
 }
 
-export default ProductPage;
+export default ProductsPage;

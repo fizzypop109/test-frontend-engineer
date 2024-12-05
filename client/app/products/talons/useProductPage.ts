@@ -1,10 +1,11 @@
-import { useSearchParams } from 'next/navigation'
+import {useSearchParams} from 'next/navigation'
 import React, {useEffect, useState} from "react";
 import {Product, SortType} from '../../types';
 
 export const useProductPage = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
+    const [sortType, setSortType] = useState<SortType>(SortType.Alphabetical);
 
     const searchParams = useSearchParams();
     const category = searchParams.get('category');
@@ -15,19 +16,22 @@ export const useProductPage = () => {
                 .then(res=>res.json())
                 .then(json=> {
                     setLoading(false);
-                    setProducts(json.products);
+                    sortProducts(json.products);
                 })
         }
 
         getProductsOfCategory();
     }, []);
 
-    const onSortChange = (e: React.FormEvent<HTMLSelectElement>) => {
-        const sortType = e.currentTarget.value as SortType;
-        const productTemp = [...products];
+    useEffect(() => {
+        sortProducts(products);
+    }, [sortType]);
+
+    const sortProducts = (productsToSort: Product[]) => {
+        const productsTemp = [...productsToSort];
 
         if (sortType === SortType.Alphabetical) {
-            const sortedProducts = productTemp.sort((a, b) => {
+            const sortedProducts = productsTemp.sort((a, b) => {
                 if (a.title < b.title) {
                     return -1;
                 }
@@ -39,7 +43,7 @@ export const useProductPage = () => {
 
             setProducts(sortedProducts);
         } else if (sortType === SortType.PriceLowHigh) {
-            const sortedProducts = productTemp.sort((a, b) => {
+            const sortedProducts = productsTemp.sort((a, b) => {
                 if (a.price < b.price) {
                     return -1;
                 }
@@ -51,7 +55,7 @@ export const useProductPage = () => {
 
             setProducts(sortedProducts);
         } else if (sortType === SortType.PriceHighLow) {
-            const sortedProducts = productTemp.sort((a, b) => {
+            const sortedProducts = productsTemp.sort((a, b) => {
                 if (a.price > b.price) {
                     return -1;
                 }
@@ -63,6 +67,10 @@ export const useProductPage = () => {
 
             setProducts(sortedProducts);
         }
+    }
+
+    const onSortChange = (e: React.FormEvent<HTMLSelectElement>) => {
+        setSortType(e.currentTarget.value as SortType);
     }
 
     return {

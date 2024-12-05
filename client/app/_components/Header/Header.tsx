@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import {CartIcon} from "../CartIcon/CartIcon";
+import {CartIcon} from "../Icons/CartIcon";
 import {useHeader} from "./talons/useHeader";
 export const Header = () => {
     const { quantity } = useHeader();
@@ -14,7 +14,7 @@ export const Header = () => {
                 </Link>
 
                 <CartIcon widthClass="w-[30px]" heightClass="h-[30px]" color="var(--coffee)" />
-                <p>{quantity}</p>
+            { quantity > 0 && <p>{quantity}</p> }
         </header>
 
     )

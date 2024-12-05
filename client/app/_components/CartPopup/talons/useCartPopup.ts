@@ -2,7 +2,7 @@ import {useContext} from "react";
 import {CartContext} from "../../../_contextProviders/CartContextProvider";
 
 export const useCartPopup = () => {
-    const { cart, cartPopupOpen, toggleCartPopup } = useContext(CartContext);
+    const { cart, cartPopupOpen, toggleCartPopup, removeFromCart } = useContext(CartContext);
 
     let totalCost = 0;
 
@@ -14,6 +14,7 @@ export const useCartPopup = () => {
         totalCost,
         cart,
         cartPopupOpen,
-        toggleCartPopup
+        toggleCartPopup,
+        removeFromCart
     }
 }
