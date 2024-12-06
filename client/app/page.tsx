@@ -2,7 +2,6 @@
 
 import {useContext} from "react";
 import {CategoriesContext} from "./_contextProviders/CategoriesContextProvider";
-import {useScreenDetector} from "./_hooks/useScreenDetector";
 import {ArrowIcon} from "./_components/Icons/ArrowIcon";
 import Link from "next/link";
 
