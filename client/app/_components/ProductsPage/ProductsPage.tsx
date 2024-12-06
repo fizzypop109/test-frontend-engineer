@@ -26,7 +26,6 @@ const ProductsPage = () => {
                 </div>
             </div>
 
-            // TODO: Infinite scroll not working on phone
             { loading ? <div>Loading...</div> : productsToShow.length > 0 ? (
                 <div className="h-full overflow-y-scroll scrollable flex flex-col gap-[20px]" onScroll={onScroll}>
                     <div
