@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type {Metadata, Viewport} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Root } from './_components/Root/Root'
@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   description: "The fakest one-stop shop for all your electronic needs!",
 };
 
+export const viewport: Viewport = {
+    initialScale: 1,
+    width: 'device-width'
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${magicalNordic.variable} ${geo.variable} antialiased`}
+        className={`${magicalNordic.variable} ${geo.variable} antialiased scrollable overflow-x-hidden`}
       >
       <CartContextProvider>
           <CategoriesContextProvider>

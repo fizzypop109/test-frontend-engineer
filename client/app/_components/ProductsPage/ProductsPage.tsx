@@ -26,8 +26,8 @@ const ProductsPage = () => {
                 </div>
             </div>
 
-            { loading ? <div>Loading...</div> : productsToShow.length > 0 ? (
-                <div className="h-full overflow-y-scroll scrollable flex flex-col gap-[20px]" onScroll={onScroll}>
+            { loading ? <h3 className="mx-auto">Loading...</h3> : productsToShow.length > 0 ? (
+                <div className="h-full overflow-y-scroll scrollable flex flex-col items-center gap-[20px]" onScroll={onScroll}>
                     <div
                         className="grid grid-cols-2 sm:flex sm:pr-[15px] sm:flex-wrap sm:justify-between gap-[10px] sm:gap-[20px]">
                         {productsToShow?.map((product) => (
@@ -38,7 +38,7 @@ const ProductsPage = () => {
                                          alt={`image of ${product.title}`}/>
                                 </div>
                                 <div className="flex flex-col gap-[5px] items-center">
-                                    <h5 className="text-center">{product.title}</h5>
+                                    <h5 className="text-center break-all">{product.title}</h5>
                                     <h5 className="font-bold">${product.price}</h5>
                                 </div>
                             </Link>

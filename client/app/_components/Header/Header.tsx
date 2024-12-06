@@ -30,7 +30,7 @@ export const Header = () => {
                 <div
                     className="absolute transition-all left-0 top-[100%] p-[var(--padding-page-mobile)] pt-0 bg-[var(--beige)] w-full">
                     <div className="bg-white w-full flex items-center">
-                        <input onChange={updateSearchTerm} onKeyDown={onKeyDown} value={searchTerm} type="text"
+                        <input onChange={updateSearchTerm} onKeyDown={onKeyDown} value={searchTerm} placeholder="Search..." type="text"
                                className="p-[10px] w-full bg-white"/>
                         <button onClick={search} className="px-[10px]">
                             <ArrowIcon widthClass="w-[20px]" heightClass="h-[20px]"/>
