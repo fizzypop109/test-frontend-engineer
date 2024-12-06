@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Run The Project Locally
 
 First, run the development server:
 
@@ -16,21 +16,38 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Visit The Deployed Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project is hosted on Vercel at: https://test-frontend-engineer-nu.vercel.app/
 
-## Learn More
+## Site Overview
 
-To learn more about Next.js, take a look at the following resources:
+While this is a much smaller example of an e-commerce site, I used other larger-scale sites as references for UX elements such as how products should be displayed, how the cart looks, and what sort of sorting options should be available.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This app essentially has three pages - the Home page, the Products page, and the Product page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The data comes from https://fakestoreapi.in/. I chose this API because it had a bit more to work with.
 
-## Deploy on Vercel
+The Home page shows the categories as clickable panels. Each panel has a corresponding image in the project that it picks up by name and displays. Each panel when clicked routes to the products page, adding a query parameter for the chosen category.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The Header is a component that lives on all pages and contains a search toggle and panel, the title of the store, and the cart popup toggle. Clicking the search toggle will open a panel containing an input for the user to search for a product. This functionality simply routes to the Products page, passing the search term as a query parameter.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Products page simply takes this query parameter and fetches the relevant products. It decides based on whether each parameter is null or not. If the search term is passed, the Products page will fetch all Products where the title of the Product contains the search term, or the search term contains the category. If a category is passed, the page will fetch all products within that category. The user can sort the products alphabetically, and by price (low -> high and high -> low). The products are loaded 20 at a time, and will continue loading automatically as the user scrolls. Clicking on any product will take the user to the Product page, giving the product's id as a query parameter.
+
+The Product page will then take the id and fetch the relevant product, displaying it to the user in a hopefully familiar way. The user can add the product to their cart by clicking the button, which then turns it into a quantity selector, allowing the user to easily add more or less of the product to the cart.
+
+The Cart 'page' is a popup that can be toggled by clicking the icon in the top right of the header. This simply shows the user all the products they have in their cart, one entry per product, and allows them to adjust the quantity, or remove the product entirely. The user can also see the total cost of all items in the cart.
+
+## Details on Approach
+
+As mentioned above, I attempted to replicate other larger e-commerce sites where appropriate. I decided against a mega menu however as this would leave the Home page with no content, and since the site is small, navigation is simple and users can return to the Home page at any time with one click.
+
+I try to design as much as possible with extensibility in mind. If the API were to add more categories, the site would allow for this easily, however the panels would be blank on the Home page as images would need to be manually added. Adding more products would be seamless.
+
+I've used Context Providers for both the categories and the cart. The categories I want to only be fetched once per use of the site, so this felt appropriate, albeit a little bit OTT. The cart functionality makes sense to use as context.
+
+Most of my pieces in this project are components. This is to keep to the 'single responsibility' principle, allow easy customisations, as well as keeping things overall DRY. The Quantity Selector, for example, is used in both the Product page and the Cart popup seamlessly. The Icon components, as another example, can be easily customised using the width, height, and colour props.
+
+Using NextJS makes routing super simple. I have three pages in the site, one being the Home page, and the other two are simply /products and /product with query parameters to decide logic.
+
+I have setup global variables for colours and padding, making custom background and text colouring with Tailwind easy.

@@ -3,6 +3,7 @@
 import React, {createContext, useState} from 'react';
 import {CartContextObject, CartProduct, Product} from "../types";
 
+// Used to store the items in the cart, the functions to update the cart, and whether the cart popup is open or not
 export const CartContext = createContext<CartContextObject>(
     {
         cart: [],
@@ -21,10 +22,12 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
     const [cart, setCart] = useState<CartProduct[]>([]);
     const [cartPopupOpen, setCartPopupOpen] = useState(false);
 
+    // Toggle the cart popup
     const toggleCartPopup = () => {
         setCartPopupOpen(isOpen => !isOpen);
     }
 
+    // Update the quantity of a given product in the cart. If it's 0, remove it
     const updateCart = (id: number, quantity: number) => {
         const tempCart = [...cart];
 
@@ -39,6 +42,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         setCart(tempCart);
     }
 
+    // Add a given product to the cart
     const addToCart = (newProduct: Product) => {
         const tempCart = [...cart];
 
@@ -54,6 +58,7 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         setCart(tempCart);
     }
 
+    // Remove a given product from the cart
     const removeFromCart = (id: number) => {
         const tempCart = [...cart];
         const index = tempCart.findIndex(p => p.product.id === id);

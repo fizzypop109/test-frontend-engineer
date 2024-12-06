@@ -14,6 +14,7 @@ export const useProductPage = () => {
     const searchParams = useSearchParams();
     const productId = searchParams.get('id');
 
+    // On first load, get the product using the id in the search params and store it
     useEffect(() => {
         const getProduct = async () => {
             fetch(`https://fakestoreapi.in/api/products/${productId}`)
@@ -27,12 +28,15 @@ export const useProductPage = () => {
         getProduct();
     }, []);
 
+    // Is the product in the cart? Used to show Add To Cart or Quantity Selector
     const isInCart = cart.findIndex(p => p.product.id === product?.id) >= 0;
 
+    // Add the product to cart - on click Add To Cart button
     const onAddToCart = () => {
         addToCart(product as Product);
     }
 
+    // Toggle showing the full description
     const updateShowingDescription = () => {
         setShowingDescription(currentVal => !currentVal);
     }

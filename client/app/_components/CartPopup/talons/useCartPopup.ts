@@ -6,6 +6,7 @@ export const useCartPopup = () => {
 
     let totalCost = 0;
 
+    // Get the total cost of all the items in the cart
     cart.forEach((item) => {
         totalCost += (item.product.price * item.quantity);
     });
