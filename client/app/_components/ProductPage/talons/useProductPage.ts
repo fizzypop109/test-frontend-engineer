@@ -9,6 +9,7 @@ export const useProductPage = () => {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [showingDescription, setShowingDescription] = useState(false);
+
     const { cart, addToCart } = useContext(CartContext);
 
     const searchParams = useSearchParams();

@@ -1,5 +1,3 @@
-"use client"
-
 import {Suspense} from "react";
 import ProductsPage from "../_components/ProductsPage/ProductsPage";
 
