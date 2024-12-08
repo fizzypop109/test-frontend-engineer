@@ -17,12 +17,28 @@ export const useProductPage = () => {
     // On first load, get the product using the id in the search params and store it
     useEffect(() => {
         const getProduct = async () => {
-            fetch(`https://fakestoreapi.in/api/products/${productId}`)
-                .then(res=>res.json())
-                .then(json=> {
-                    setLoading(false);
-                    setProduct(json.product);
-                })
+            try {
+                const response = await fetch(`https://fakestoreapi.in/api/products/${productId}`);
+
+                if (!response.ok) {
+                    throw new Error(response.statusText)
+                }
+
+                const json = await response.json();
+
+                setLoading(false);
+                setProduct(json.product);
+            }
+            catch (error) {
+                if (typeof error === "string") {
+                    console.error(error);
+                }
+                else if (error instanceof Error) {
+                    console.log(`Error ${error.message}`);
+                }
+
+                setLoading(false);
+            }
         }
 
         getProduct();

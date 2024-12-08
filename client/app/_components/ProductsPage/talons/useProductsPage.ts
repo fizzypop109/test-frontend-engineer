@@ -26,17 +26,32 @@ export const useProductsPage = () => {
     useEffect(() => {
         if (category !== null) {
             const getProductsOfCategory = async () => {
-                fetch(`https://fakestoreapi.in/api/products/category?type=${category}`)
-                    .then(res=>res.json())
-                    .then(json=> {
-                        // Get first 20
-                        const sortedProducts = sortProducts(json.products);
-                        setProducts(sortedProducts);
-                        const firstTwenty = sortedProducts.slice(0, 20);
-                        setLoading(false);
-                        setProductsToShow(firstTwenty);
-                        setMoreProducts(sortedProducts.length > firstTwenty.length);
-                    })
+                try {
+                    const response = await fetch(`https://fakestoreapi.in/api/products/category?type=${category}`);
+
+                    if (!response.ok) {
+                        throw new Error(response.statusText)
+                    }
+
+                    const json = await response.json();
+
+                    // Get first 20
+                    const sortedProducts = sortProducts(json.products);
+                    setProducts(sortedProducts);
+                    const firstTwenty = sortedProducts.slice(0, 20);
+                    setLoading(false);
+                    setProductsToShow(firstTwenty);
+                    setMoreProducts(sortedProducts.length > firstTwenty.length);
+                } catch (error) {
+                    if (typeof error === "string") {
+                        console.error(error);
+                    }
+                    else if (error instanceof Error) {
+                        console.log(`Error ${error.message}`);
+                    }
+
+                    setLoading(false);
+                }
             }
 
             getProductsOfCategory();

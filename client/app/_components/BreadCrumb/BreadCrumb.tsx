@@ -7,7 +7,7 @@ export interface BreadCrumbProps {
 
 export const BreadCrumb = ({ to, label }: BreadCrumbProps) => {
     return (
-        <Link href={to} className="underline">
+        <Link href={to} className="underline max-w-[15ch] truncate">
             {label.toUpperCase()}
         </Link>
     );
