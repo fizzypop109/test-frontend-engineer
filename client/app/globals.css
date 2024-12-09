@@ -68,3 +68,16 @@ h4 {
     }
   }
 }
+
+.loading {
+  animation: loading 0.5s infinite linear;
+}
+
+@keyframes loading {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}

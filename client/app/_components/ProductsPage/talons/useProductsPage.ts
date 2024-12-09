@@ -1,5 +1,5 @@
 import {useSearchParams} from 'next/navigation'
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Product, SortType} from '../../../types';
 
 export const useProductsPage = () => {
@@ -8,7 +8,7 @@ export const useProductsPage = () => {
     const [loading, setLoading] = useState(true);
     const [sortType, setSortType] = useState<SortType>(SortType.Alphabetical);
     const [page, setPage] = useState(1);
-    const [moreProducts, setMoreProducts] = useState<boolean>(true);
+    const [moreProducts, setMoreProducts] = useState<boolean>(false);
 
     // Load 20 products at a time
     const PRODUCTS_PER_PAGE = 20;
@@ -151,6 +151,7 @@ export const useProductsPage = () => {
         category,
         searchTerm,
         moreProducts,
+        PRODUCTS_PER_PAGE,
         onSortChange,
         onScroll
     }

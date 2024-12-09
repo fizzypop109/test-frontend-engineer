@@ -4,7 +4,10 @@ import {CategoriesContext} from "../../../_contextProviders/CategoriesContextPro
 export const useCategories = () => {
     const categories = useContext(CategoriesContext);
 
+    const CATEGORIES_TOTAL = 6;
+
     return {
-        categories
+        categories,
+        CATEGORIES_TOTAL
     }
 }
